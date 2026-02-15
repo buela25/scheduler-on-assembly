@@ -48,3 +48,20 @@ __qemu:__ starts emulation of ARM cpu on the QEMU on given port
 __gdb:__ attaches the GNU debugger to the QEMU execution
 
 __clean:__ removes all the `.elf` `.o` `.debug` `.lst` `.out` etc, basically the files generated during compilation and NOT wrote by us. 
+
+---
+---
+## CPU Boot up
+
+Next step, we will boot up the CPU by configuring the stack space address and reset handler code. Reset handler will have some demo instructions to execute, which doesn't have any significance in boot process. 
+
+The embedded SRAM in STM32VLDiscovery starts at `0x2000 0000`, therefore we will use this as our initial Stack Pointer. 
+
+In the vector table, at address `0x0000 0000` it will hold the stack pointer and at the address `0x0000 0004` it will hold to address of the instructions to execute during Reset. 
+
+With this, during boot up the Reg SP (Stack Pointer) will hold the SRAM address of `0x2000 1000` and Reg PC (Program Counter) will hold the address to the instruction of our reset handler. 
+
+![CPU boot up](images/CPU_boot_up.png)
+
+---
+---
