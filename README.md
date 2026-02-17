@@ -65,3 +65,23 @@ With this, during boot up the Reg SP (Stack Pointer) will hold the SRAM address 
 
 ---
 ---
+## Configuring the sysTick timer
+sysTick timer raises an interrupt periodically and executes the code written in the Interrupt Service Routine. 
+
+This concept of periodic interrupt by the sysTick will be used to interrupt the current running thread and switch to next thread in our scheduler. (will come to that in the next section, for now lets configure the sysTick to interrupt and do some simple task)
+
+The code to configure the sysTick timer will be executed as part of the reset_handler, which is the first thing that runs after CPU boots up. 
+
+As seen here, in the reset_handler we are configuring the registers required for the sysTick to work, along with the time period on which we want the sysTick to raise an interrupt. 
+
+Also, we are clearing the reg R5 on the CPU. The ISR will increment it by 1 everytime the sysTick timer hits it. 
+
+![sysTick_config](images/sysTick_config.png)
+
+Once we put a breakpoint at `break_here` and release the CPU to run, after sysTick configuration is completed in the `reset_handler`, it loops in the branch instruction, until the timer raises interrupt. 
+
+Once the sysTick raises the interrupt, CPU jumps to `systick_handler`, increases the reg `R5` by 1 (as we can see in reg dump) and stops hitting the breakpoint at `break_here`. 
+
+If we keep on continuing from here, everytime timer gets over, sysTick will raise an interrupt, ISR will increase by 1 and timer will get reset and start recounting again. 
+
+![sysTick_ISR](images/sysTick_ISR.png)
