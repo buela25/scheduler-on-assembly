@@ -1,6 +1,8 @@
 # scheduler-on-assembly
 This repo demonstrates implementation of scheduler using assembly code for ARM-M class
 
+### References
+- [ARM Cortex-M Assembly Programming, YT playlist](https://youtube.com/playlist?list=PLTbERlX_4R01fR_F1giTebJuAUwEd9IsM&si=zzuvw6R4BPWwdgdz) by [Piyush Itankar](https://github.com/streetdogg), [PyjamaCafe](https://github.com/pyjamacafe) 
 ---
 ---
 ## Environment setup (one time) 
@@ -115,3 +117,4 @@ Now in the above flow of events, just before popping back the register values fr
 
 ---
 ---
+## Round Robin Scheduler for 3 Tasks
