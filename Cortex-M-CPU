@@ -4,9 +4,9 @@
 
 ARM processors are broadly categorized into:
 
-* **Application Processors** (e.g., Cortex-A) – optimized for high-performance systems like Linux-based platforms
-* **Real-Time Processors** (e.g., Cortex-R) – designed for deterministic, safety-critical applications
-* **Microcontroller Processors** (e.g., Cortex-M) – optimized for low-latency, interrupt-driven embedded systems
+* Application Processors** (e.g., Cortex-A) – optimized for high-performance systems like Linux-based platforms
+* Real-Time Processors** (e.g., Cortex-R) – designed for deterministic, safety-critical applications
+* Microcontroller Processors** (e.g., Cortex-M) – optimized for low-latency, interrupt-driven embedded systems
 
 This project focuses on **Cortex-M microcontrollers**, implementing a **minimal round-robin scheduler in pure assembly**.
 
