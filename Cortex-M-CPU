@@ -3,6 +3,28 @@ ARM processors :
 2. Real time processors
 3. Microcontroller processors
 
+This project focus on scheduling ARM Cortex M Type processors via assembler code.
+It is a crude implementation of illustrating the round-robin implementation of 3 tasks which increments 3 different registers.
+
+To do:
+1. Go to the project repository and give the following makefile commands
+        1. make clean
+        2. make build
+        3. make qemu
+
+2. Open other commandline & watch the internal register stack of 3 tasks
+        1. make gdb
+
+3. Keep breakpoints at following labels:
+        1. break switch_context
+        2. break task1 
+        3. set $sp = stack_1 (which points to task1 memory)
+
+        Follow the above three steps for different tasks and check the memory model of corresponding task stacks.
+        
+
+
+
 
 
 
