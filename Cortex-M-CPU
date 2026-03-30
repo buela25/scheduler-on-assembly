@@ -1,27 +1,111 @@
-ARM processors :
-1. Application processors
-2. Real time processors
-3. Microcontroller processors
+# ARM Cortex-M Round-Robin Scheduler (Assembly)
 
-This project focus on scheduling ARM Cortex M Type processors via assembler code.
-It is a crude implementation of illustrating the round-robin implementation of 3 tasks which increments 3 different registers.
+## Overview
 
-To do:
-1. Go to the project repository and give the following makefile commands
-        1. make clean
-        2. make build
-        3. make qemu
+ARM processors are broadly categorized into:
 
-2. Open other commandline & watch the internal register stack of 3 tasks
-        1. make gdb
+* **Application Processors** (e.g., Cortex-A) – optimized for high-performance systems like Linux-based platforms
+* **Real-Time Processors** (e.g., Cortex-R) – designed for deterministic, safety-critical applications
+* **Microcontroller Processors** (e.g., Cortex-M) – optimized for low-latency, interrupt-driven embedded systems
 
-3. Keep breakpoints at following labels:
-        1. break switch_context
-        2. break task1 
-        3. set $sp = stack_1 (which points to task1 memory)
+This project focuses on **Cortex-M microcontrollers**, implementing a **minimal round-robin scheduler in pure assembly**.
 
-        Follow the above three steps for different tasks and check the memory model of corresponding task stacks.
-        
+The goal is not to build a full RTOS, but to **demonstrate the fundamentals of task scheduling and context switching** at the lowest level.
+
+---
+
+## What This Project Does
+
+* Implements a **cooperative round-robin scheduler**
+* Schedules **3 independent tasks**
+* Each task:
+
+  * Runs in an infinite loop
+  * Modifies a dedicated register (R0, R1, R2)
+* Performs **manual context switching**
+* Demonstrates **stack isolation per task**
+
+This gives a clear view of:
+
+* How the CPU switches execution contexts
+* How stacks are used to preserve task state
+* What actually happens beneath an RTOS scheduler
+
+---
+
+## Build & Run Instructions
+
+### Step 1: Build and Launch in QEMU
+
+```bash
+make clean
+make build
+make qemu
+```
+
+This compiles the project and runs it on a Cortex-M target using QEMU.
+
+---
+
+### Step 2: Attach GDB for Debugging
+
+Open a new terminal and run:
+
+```bash
+make gdb
+```
+
+This allows you to inspect registers, stacks, and execution flow in real time.
+
+---
+
+## Debugging & Exploration
+
+### Set Breakpoints
+
+In GDB, set breakpoints at key execution points:
+
+```gdb
+break switch_context
+break task1
+```
+
+Repeat similarly for:
+
+```gdb
+break task2
+break task3
+```
+
+---
+
+### Inspect Task Stacks
+
+To analyze how each task maintains its own context:
+
+```gdb
+set $sp = stack_1
+```
+
+This redirects the stack pointer to **Task 1's stack region**.
+
+Repeat for other tasks:
+
+```gdb
+set $sp = stack_2
+set $sp = stack_3
+```
+
+---
+
+## What to Observe
+
+* Each task has its **own stack memory**
+* Registers are **saved/restored during context switch**
+* Stack frames evolve independently per task
+* Scheduler rotates execution in a **round-robin manner**
+
+This is essentially what a real RTOS does—just without abstraction.
 
 
 
